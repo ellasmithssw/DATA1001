@@ -1,11 +1,60 @@
 ---
 title: "Project2"
-author: "Ella"
+author: "Team 6"
 date: "2024-04-09"
 output: html_document
 ---
 
-```{r}
+```{r warning = F, message = F}
 library(tidyverse)
 ```
 
+
+
+
+# Karthik
+### Learning preference ( Qualitative -Nominal) - Bar plot
+```{r}
+
+```
+### Lectures behind (Quantitative, Discrete) - Histogram
+```{r}
+
+```
+### Play speed of lectures?  (Quantative, Discrete) - Histogram
+```{r}
+
+```
+### Time before the due date do you submit assignments? ( Qualitative -Nominal) - Bar plot
+```{r}
+
+```
+
+
+# Caleb
+### Lectures behind (Quantitative, Discrete) and sleep time (Quantitative-Discrete)  - Scatter plot
+```{r}
+
+```
+### Learning preference (Qualitative-Nominal)and lectures behind (Quantitative-Discrete)- Side-by-side box plot
+```{r}
+
+```
+### Amount of extra-curricular  (Quantitative-Discrete) versus hours studying (Quantitative-Discrete) - Scatter plot
+```{r}
+
+```
+
+# Ella 
+### Play speed (Quantitative-Discrete) and amount spent studying (Quantitative-Discrete)- Scatter plot
+```{r}
+
+```
+### Learning preference (Qualitative-Nominal) and time submitted before assignment (Qualitative-Ordinal) -Stacked bar plot
+```{r}
+
+```
+### Play speed (Quantitative-Discrete) and time submitted before the assignment(Qualitative-Ordinal) - Side-by-side box plot
+```{r}
+
+```
