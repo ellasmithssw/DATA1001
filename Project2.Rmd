@@ -1,0 +1,11 @@
+---
+title: "Project2"
+author: "Ella"
+date: "2024-04-09"
+output: html_document
+---
+
+```{r}
+library(tidyverse)
+```
+
