@@ -10,61 +10,115 @@ library(tidyverse)
 ```
 
 ```{r}
-data = read.csv("~/Documents/GitHub/DATA1001/DATA1001 Project responses with time - Sheet1.csv")
+surveyResults_1 = read.csv("~/Documents/GitHub/DATA1001/DATA1001 Project responses with time - Sheet1 copy.csv")
+str(surveyResults_1)
 ```
-
-# Paras 
-
 ```{r}
 new_names = c("Timestamp","LearningPreference","CurrentLearningType","AssignmentSubmission","LecturesBehind","LectureSpeed","WakeUp","Bedtime","HoursStudying","Extracurriculars","MealsDaily","HoursSleep")
-colnames(Project_2) = new_names
-colnames(Project_2)
+colnames(surveyResults_1) = new_names
+rows_to_remove <- c(6,24,33)
+surveyResults <- surveyResults_1[-rows_to_remove, ]
 ```
 
-
-# Karthik
 ### Learning preference ( Qualitative -Nominal) - Bar plot
 ```{r}
+
+ggplot(surveyResults, aes(x=LearningPreference)) + geom_bar()
+
 
 ```
 ### Lectures behind (Quantitative, Discrete) - Histogram
 ```{r}
 
+ggplot(surveyResults, aes(x=LecturesBehind)) + geom_histogram()
+
 ```
 ### Play speed of lectures?  (Quantative, Discrete) - Histogram
+
+changed to bar - please check
 ```{r}
+
+ggplot(surveyResults, aes(x=LectureSpeed))  + geom_bar()
 
 ```
 ### Time before the due date do you submit assignments? ( Qualitative -Nominal) - Bar plot
 ```{r}
+ggplot(surveyResults, aes(x=AssignmentSubmission))  + geom_bar()
 
 ```
 
 
-# Caleb
+
 ### Lectures behind (Quantitative, Discrete) and sleep time (Quantitative-Discrete)  - Scatter plot
+two just in case one shows better
 ```{r}
 
+ggplot(surveyResults, aes(x=LecturesBehind, y = HoursSleep)) + geom_point()
+
+ggplot(surveyResults, aes(x=HoursSleep, y = LecturesBehind)) + geom_point()
 ```
 ### Learning preference (Qualitative-Nominal)and lectures behind (Quantitative-Discrete)- Side-by-side box plot
 ```{r}
 
+ggplot(data = surveyResults, aes(x = LearningPreference, y = LecturesBehind)) +
+    geom_boxplot() +
+    theme_minimal() +
+    labs(title = "Box Plot of Lectures Behind by Learning Preference",
+         x = "Learning Preference",
+         y = "Lectures Behind")
+       
+
+
+ggplot(data = surveyResults, aes(x = LecturesBehind, y = LearningPreference)) +
+    geom_boxplot() +
+    theme_minimal() +
+    labs(title = "Box Plot of Lectures Behind by Learning Preference",
+         x = "Lectures Behind",
+         y = "Learning Preference")
+
+
 ```
 ### Amount of extra-curricular  (Quantitative-Discrete) versus hours studying (Quantitative-Discrete) - Scatter plot
+
+fix
+
 ```{r}
 
+
+ggplot(surveyResults, aes(x=Extracurriculars, y = HoursStudying)) + geom_point()
+
+ggplot(surveyResults, aes(x=HoursStudying, y = Extracurriculars)) + geom_point()
 ```
 
-# Ella 
 ### Play speed (Quantitative-Discrete) and amount spent studying (Quantitative-Discrete)- Scatter plot
 ```{r}
+
+ggplot(surveyResults, aes(x=LectureSpeed, y = HoursStudying)) + geom_point()
+
+
+ggplot(surveyResults, aes(x=HoursStudying, y = LectureSpeed)) + geom_point()
 
 ```
 ### Learning preference (Qualitative-Nominal) and time submitted before assignment (Qualitative-Ordinal) -Stacked bar plot
 ```{r}
 
+ggplot(surveyResults, aes(x=LearningPreference)) + geom_bar(aes(fill=AssignmentSubmission))
+
+ggplot(surveyResults, aes(x=AssignmentSubmission)) + geom_bar(aes(fill=LearningPreference))
+
+
+barplot(table(surveyResults$AssignmentSubmission,surveyResults$LearningPreference))
+
+barplot(table(surveyResults$LearningPreference,surveyResults$AssignmentSubmission))
+
+
 ```
 ### Play speed (Quantitative-Discrete) and time submitted before the assignment(Qualitative-Ordinal) - Side-by-side box plot
 ```{r}
+
+ggplot(surveyResults, aes(x=LectureSpeed, y = AssignmentSubmission)) + geom_boxplot()
+
+ggplot(surveyResults, aes(x=AssignmentSubmission, y = LectureSpeed)) + geom_boxplot()
+
 
 ```
