@@ -9,6 +9,9 @@ output: html_document
 library(tidyverse)
 ```
 
+```{r}
+data = read.csv("~/Documents/GitHub/DATA1001/DATA1001 Project responses with time - Sheet1.csv")
+```
 
 
 
