@@ -10,8 +10,16 @@ library(tidyverse)
 ```
 
 ```{r}
-surveyResults = read.csv("~/Documents/GitHub/DATA1001/DATA1001 Project responses with time - Sheet1 copy.csv")
-str(surveyResults)
+
+surveyResults_1 = read.csv("~/Documents/GitHub/DATA1001/DATA1001 Project responses with time - Sheet1 copy.csv")
+str(surveyResults_1)
+```
+```{r}
+new_names = c("Timestamp","LearningPreference","CurrentLearningType","AssignmentSubmission","LecturesBehind","LectureSpeed","WakeUp","Bedtime","HoursStudying","Extracurriculars","MealsDaily","HoursSleep")
+colnames(surveyResults_1) = new_names
+rows_to_remove <- c(6,24,33)
+surveyResults <- surveyResults_1[-rows_to_remove, ]
+
 ```
 
 ### Learning preference ( Qualitative -Nominal) - Bar plot
