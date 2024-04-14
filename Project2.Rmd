@@ -13,6 +13,13 @@ library(tidyverse)
 data = read.csv("~/Documents/GitHub/DATA1001/DATA1001 Project responses with time - Sheet1.csv")
 ```
 
+# Paras 
+
+```{r}
+new_names = c("Timestamp","LearningPreference","CurrentLearningType","AssignmentSubmission","LecturesBehind","LectureSpeed","WakeUp","Bedtime","HoursStudying","Extracurriculars","MealsDaily","HoursSleep")
+colnames(Project_2) = new_names
+colnames(Project_2)
+```
 
 
 # Karthik
