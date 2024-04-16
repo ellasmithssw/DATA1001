@@ -20,6 +20,8 @@ colnames(surveyResults_1) = new_names
 rows_to_remove <- c(6,24,33)
 surveyResults <- surveyResults_1[-rows_to_remove, ]
 
+# removed lines 6, 24 and 33 because they were unrealistic responses. for example: 840 hours of study in a day...
+
 ```
 
 ### Learning preference ( Qualitative -Nominal) - Bar plot
