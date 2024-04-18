@@ -69,48 +69,42 @@ A weak positive correlation between online learning and keeping up with universi
 
 
 ```{r}
-ggplot(surveyResults, aes(x=LearningPreference)) + geom_bar()
+
 
 ggplot(surveyResults, aes(x = LearningPreference)) +
-  geom_bar(fill = "steelblue", alpha = 0.7) +  # Customize bar color and transparency
+  geom_bar(fill = "steelblue", alpha = 0.7) +
   labs(
-    title = "Distribution of Learning Preference",  # Add a title
-    x = "Learning Preference",  # Label the x-axis
-    y = "Number of Students"  # Label the y-axis
+    title = "Distribution of Learning Preference",  
+    x = "Learning Preference", 
+    y = "Number of Students" 
   ) +
-  theme_minimal() +  # Use a minimal theme for a clean look
+  theme_minimal() + 
   theme(
-    plot.title = element_text(size = 14, face = "bold", hjust = 0.5),  # Customize title appearance
-    axis.title = element_text(size = 12),  # Customize axis titles appearance
-    axis.text = element_text(size = 10),  # Customize axis text appearance
-    axis.text.x = element_text(angle = 45, hjust = 1)  # Rotate x-axis labels for better readability
+    plot.title = element_text(size = 14, face = "bold", hjust = 0.5), 
+    axis.title = element_text(size = 12),  
+    axis.text = element_text(size = 10), 
+    axis.text.x = element_text(angle = 45, hjust = 1)  
   )
 ```
 
 In hybrid learning, 75% of students fall behind by fewer than 4 lectures. In contrast, 50% of in-person students fall behind by 4-10 lectures. This suggests hybrid learning can help reduce the number of lectures missed. The range of lectures missed is the smallest in online learning, indicating consistent results. In both hybrid and in-person learning, students are typically less than 2 lectures behind, though hybrid students show better performance overall.
 
 ```{r}
-ggplot(data = surveyResults, aes(x = LecturesBehind, y = LearningPreference)) +
-    geom_boxplot() +
-    theme_minimal() +
-    labs(title = "Box Plot of Lectures Behind by Learning Preference",
-         x = "Lectures Behind",
-         y = "Learning Preference")
 
 
 ggplot(data = surveyResults, aes(x = LearningPreference, y = LecturesBehind, fill = LearningPreference)) +
-  geom_boxplot(alpha = 0.7) +  # Customize box plot fill and transparency
-  theme_minimal() +  # Use a minimal theme for a clean look
+  geom_boxplot(alpha = 0.7) + 
+  theme_minimal() + 
   labs(
-    title = "Box Plot of Lectures Behind by Learning Preference",  # Add a title
-    x = "Learning Preference",  # Label the x-axis
-    y = "Lectures Behind"  # Label the y-axis
+    title = "Box Plot of Lectures Behind by Learning Preference",  
+    x = "Learning Preference",  
+    y = "Lectures Behind"  
   ) +
   theme(
-    plot.title = element_text(size = 14, face = "bold", hjust = 0.5),  # Customize title appearance
-    axis.title = element_text(size = 12),  # Customize axis titles appearance
-    axis.text = element_text(size = 10),  # Customize axis text appearance
-    legend.position = "top"  # Position the legend at the top of the plot
+    plot.title = element_text(size = 14, face = "bold", hjust = 0.5), 
+    axis.title = element_text(size = 12),
+    axis.text = element_text(size = 10),  
+    legend.position = "top" 
   ) +
   scale_fill_brewer(palette = "Set3") 
 
@@ -128,17 +122,17 @@ of watch at a speed faster than 1x. This indicates that without the option to wa
 
 ```{r}
 ggplot(surveyResults, aes(x = as.numeric(LectureSpeed))) +
-  geom_bar(fill = "steelblue", alpha = 0.7) +  # Customize bar color and transparency
+  geom_bar(fill = "steelblue", alpha = 0.7) +  
   labs(
-    title = "Distribution of Lecture Speed",  # Add a title
-    x = "Lecture Speed",  # Label the x-axis
-    y = "Number of Students"  # Label the y-axis
+    title = "Distribution of Lecture Speed", 
+    x = "Lecture Speed",  
+    y = "Number of Students" 
   ) +
-  theme_minimal() +  # Use a minimal theme for a clean look
+  theme_minimal() + 
   theme(
-    plot.title = element_text(size = 14, face = "bold", hjust = 0.5),  # Customize title appearance
-    axis.title = element_text(size = 12),  # Customize axis titles appearance
-    axis.text = element_text(size = 10)  # Customize axis text appearance
+    plot.title = element_text(size = 14, face = "bold", hjust = 0.5), 
+    axis.title = element_text(size = 12),  
+    axis.text = element_text(size = 10) 
   ) +
   scale_x_continuous(
     breaks = seq(
@@ -159,18 +153,18 @@ There is no strong correlation between university activities and healthy life ha
 ggplot(surveyResults, aes(x = HoursStudying, y = HoursSleep)) + geom_point() + geom_smooth(method = "lm")
 
 ggplot(surveyResults, aes(x = HoursStudying, y = HoursSleep)) +
-  geom_point(color = "blue", size = 2, alpha = 0.6) +  # Customize point color, size, and transparency
-  geom_smooth(method = "lm", color = "red", se = TRUE, linetype = "dashed") +  # Customize regression line
+  geom_point(color = "blue", size = 2, alpha = 0.6) + 
+  geom_smooth(method = "lm", color = "red", se = TRUE, linetype = "dashed") + 
   labs(
-    title = "Relationship between Hours Studying and Hours Sleeping",  # Add a title
-    x = "Hours Studying",  # Label the x-axis
-    y = "Hours Sleeping"  # Label the y-axis
+    title = "Relationship between Hours Studying and Hours Sleeping", 
+    x = "Hours Studying", 
+    y = "Hours Sleeping" 
   ) +
-  theme_minimal() +  # Use a minimal theme for a clean look
+  theme_minimal() + 
   theme(
-    plot.title = element_text(size = 14, face = "bold", hjust = 0.5),  # Customize title appearance
-    axis.title = element_text(size = 12),  # Customize axis titles appearance
-    axis.text = element_text(size = 10)  # Customize axis text appearance
+    plot.title = element_text(size = 14, face = "bold", hjust = 0.5),
+    axis.title = element_text(size = 12),  
+    axis.text = element_text(size = 10) 
   )
 ```
 
@@ -179,29 +173,23 @@ HoursSleep and HoursStudy show a weak negative correlation (-0.2775) between stu
 
 
 ```{r}
-fit = lm(HoursStudying~ HoursSleep, data = surveyResults)
-ggplot(fit, aes(x = .fitted, y = .resid)) +
-  geom_point() +
-  geom_hline(yintercept = 0)
 
-
-# Fit a linear regression model
 fit <- lm(HoursStudying ~ HoursSleep, data = surveyResults)
 
-# Create the plot
+
 ggplot(fit, aes(x = .fitted, y = .resid)) +
-  geom_point(color = "blue", size = 2, alpha = 0.6) +  # Customize point color, size, and transparency
-  geom_hline(yintercept = 0, color = "red", linetype = "dashed", size = 1) +  # Customize horizontal line
+  geom_point(color = "blue", size = 2, alpha = 0.6) + 
+  geom_hline(yintercept = 0, color = "red", linetype = "dashed", size = 1) + 
   labs(
-    title = "Residuals vs Fitted Values",  # Add a title
-    x = "Fitted Values",  # Label the x-axis
-    y = "Residuals"  # Label the y-axis
+    title = "Residuals vs Fitted Values", 
+    x = "Fitted Values", 
+    y = "Residuals"  
   ) +
-  theme_minimal() +  # Use a minimal theme for a clean look
+  theme_minimal() + 
   theme(
-    plot.title = element_text(size = 14, face = "bold", hjust = 0.5),  # Customize title appearance
-    axis.title = element_text(size = 12),  # Customize axis titles appearance
-    axis.text = element_text(size = 10)  # Customize axis text appearance
+    plot.title = element_text(size = 14, face = "bold", hjust = 0.5),  
+    axis.title = element_text(size = 12), 
+    axis.text = element_text(size = 10) 
   ) 
 ```
 
