@@ -1,0 +1,251 @@
+---
+title: "Project 2"
+author: "Ella Smith 530494146"
+subtitle: "The effect of the movement from in-person lectures to online lectures on students' work-life balance and results."
+date: "University of Sydney | Data Science| April 2024"
+output:
+  html_document:
+    fig_caption: yes
+    number_sections: yes
+    self_contained: yes
+    theme: flatly
+    css: 
+      - https://use.fontawesome.com/releases/v5.0.6/css/all.css
+    toc: true
+    toc_depth: 3
+    toc_float: true
+    code_folding: hide
+---
+
+<br>
+```{r warning=F, message=F}
+library(tidyverse)
+surveyResults_1 = read.csv("~/Documents/GitHub/DATA1001/DATA1001 Project responses with time - Sheet1 copy.csv")
+
+```
+
+## Executive Summary
+- The aim of this report was to investigate the change within students' work-life balance and results due to the movement from in person to online lectures.
+- The data collected exhibits a weak positive correlation between the introduction of online learning and the students ability to keep up with lectures. It also exhbits no correlation between work life balance and the introduction of online learning
+
+## Initial Data Analysis (IDA)
+### Source
+The data was collected from university students from 25/3/24-9/4/24, using Google Forms (https://forms.gle/E5e7UwEpfacLxCGk8)
+
+### Structure
+Our survey was conducted on a range of university students, there were in total, 68 entries. Each survey response represented a row in our CSV file. Each question created a column of data for our analysis. There were 10 questions in our survey however using two pieces of data we created an 11th column named “HoursSleep”. Our data included Quantitative data such as LecturesBehind and qualitative data such as LearningPreference. We could also break down quantitative into continuous and discrete data.  
+
+```{r}
+str(surveyResults_1)
+```
+
+### Limitations
+Our data collection showed a few limitations. These included the possibility of biases such as consent bias, selection bias and recall bias. Due to our limited resources, we could not access a wide enough range of students to survey in order to reduce the selection bias. Hence most of our participants are from USYD and due to the fact we posted on a shared Data Science Unit platform more than half of the participants are students in Data Science. Recall bias is a particularly big bias we encountered as many students can’t recall how long they sleep on average or how many lectures behind they are. This will skew our data. Finally, the consent bias also indicates that the students who filled out this survey want to fill it out and hence will be a different population from the students who didn't. 
+ 
+#### Assumptions
+Responses making a mistake with AM and PM, there were multiple responses with ‘unrealistic’ sleeping times due to inadequate understanding between AM and PM. Times such as sleeping at 12PM and waking up at 8PM were assumed to be mistakes made by the respondent, and were corrected.
+
+#### Data Clearing
+There were some ‘unrealistic’ responses, someone who studied 840 hours in a day, someone who slept for 8 hours and studied for 20 hours per day and someone who studied for 233333333333 hours in a day.
+These were removed using :
+
+
+```{r}
+rows_to_remove <- c(7,24,33)
+surveyResults <- surveyResults_1[-rows_to_remove, ]
+```
+
+The odd-looking times were corrected in the csv file.
+
+We added another column with the using excel and editing the csv file directly. We did this instead of using Rstudio as the use of AM/PM plus the noticeable number of wrong inputs due to the confusion with midnight being AM meant it was more efficient to do it externally to R.
+
+## Research Theme
+Due to the somewhat recent events of coronavirus, many institutions have shifted their jobs and teaching to an online format involving less in-person contact. As the fear of covid dissipates the world has become more open to at-home work and study. Our research theme aims to determine the difference between both in-person and at-home study. 
+
+
+2.2 Research Question 1
+How well do people stay on top of work when at home or in person?
+
+A weak positive correlation between the option of online learning and keeping up with university work has been made. The data could suggest that online learning with the options of different replay speeds could lead to students reducing the number lectures tehy are behind potentially due to the saved time. Hwoever our data suggests that the hybrid form of learning is the most optimal. It could suggest the playback speed provided with the online lectures and the focus and in person questioning can lead to the most understanding in the most optimatl time.
+
+Our data shows that the majority of students have a hybrid form of learning of approximately 45%. There however shows that a larger portion of students maintain the previous method of in-person learning in contrast to the online learning that became popular after the world pandemic in 2020.
+
+```{r}
+ggplot(surveyResults, aes(x=LearningPreference)) + geom_bar()
+
+ggplot(surveyResults, aes(x = LearningPreference)) +
+  geom_bar(fill = "steelblue", alpha = 0.7) +  # Customize bar color and transparency
+  labs(
+    title = "Distribution of Learning Preference",  # Add a title
+    x = "Learning Preference",  # Label the x-axis
+    y = "Number of Students"  # Label the y-axis
+  ) +
+  theme_minimal() +  # Use a minimal theme for a clean look
+  theme(
+    plot.title = element_text(size = 14, face = "bold", hjust = 0.5),  # Customize title appearance
+    axis.title = element_text(size = 12),  # Customize axis titles appearance
+    axis.text = element_text(size = 10),  # Customize axis text appearance
+    axis.text.x = element_text(angle = 45, hjust = 1)  # Rotate x-axis labels for better readability
+  )
+```
+
+More than 75% of students who study hybrid are less than 4 lectures behind. 50% of the students who study only in person are between 4 and 10 lectures behind. Indicating that doing some online lectures reduces the number of lectures behind.However studying at home/online has the smallest range indicating more consistency with the results. The lowest median lectures behind for the learning preferences is 2 and this is held by the Hybrid and in person. But in hybrid has 50% less than 2 lectures behind whereas in person only has 25%. 
+Hybrid has the lowest median AND same median as in person
+
+```{r}
+ggplot(data = surveyResults, aes(x = LecturesBehind, y = LearningPreference)) +
+    geom_boxplot() +
+    theme_minimal() +
+    labs(title = "Box Plot of Lectures Behind by Learning Preference",
+         x = "Lectures Behind",
+         y = "Learning Preference")
+
+
+ggplot(data = surveyResults, aes(x = LearningPreference, y = LecturesBehind, fill = LearningPreference)) +
+  geom_boxplot(alpha = 0.7) +  # Customize box plot fill and transparency
+  theme_minimal() +  # Use a minimal theme for a clean look
+  labs(
+    title = "Box Plot of Lectures Behind by Learning Preference",  # Add a title
+    x = "Learning Preference",  # Label the x-axis
+    y = "Lectures Behind"  # Label the y-axis
+  ) +
+  theme(
+    plot.title = element_text(size = 14, face = "bold", hjust = 0.5),  # Customize title appearance
+    axis.title = element_text(size = 12),  # Customize axis titles appearance
+    axis.text = element_text(size = 10),  # Customize axis text appearance
+    legend.position = "top"  # Position the legend at the top of the plot
+  ) +
+  scale_fill_brewer(palette = "Set3") 
+
+```
+The students who watch the online lectures indicate that they work from home or hybrid. The most popular speed is 1x speed therefore they don't have any time advantage over the students who watch in person. However more than 65% 
+
+```{r}
+total_above_1 <-nrow(surveyResults %>% filter(LectureSpeed>1.0))
+total <- nrow(surveyResults)
+percentage = total_above_1/total *100
+print(percentage)
+```
+of watch at a speed faster than 1x. This indicates that without the option to watch online 65% of students would lack that time advantage which is very important at univeristy and could suggest they would fall more lectures behind.
+
+
+```{r}
+ggplot(surveyResults, aes(x = as.numeric(LectureSpeed))) +
+  geom_bar(fill = "steelblue", alpha = 0.7) +  # Customize bar color and transparency
+  labs(
+    title = "Distribution of Lecture Speed",  # Add a title
+    x = "Lecture Speed",  # Label the x-axis
+    y = "Number of Students"  # Label the y-axis
+  ) +
+  theme_minimal() +  # Use a minimal theme for a clean look
+  theme(
+    plot.title = element_text(size = 14, face = "bold", hjust = 0.5),  # Customize title appearance
+    axis.title = element_text(size = 12),  # Customize axis titles appearance
+    axis.text = element_text(size = 10)  # Customize axis text appearance
+  ) +
+  scale_x_continuous(
+    breaks = seq(
+      min(as.numeric(surveyResults$LectureSpeed)),
+      max(as.numeric(surveyResults$LectureSpeed)),
+      by = 0.25
+    )
+  )
+
+```
+
+
+## Research Question 2
+Does the introduction of online learning lead to a bettwer worklife balance?
+
+No clear correlation has been made between university activities and healthy life activities . All correlation coefficients are between -0.27 and 0.23 which is a very weak correlation meaning the trends are not followed very strongly. 
+
+HoursSleep, HoursStudy, with regression line
+```{r}
+ggplot(surveyResults, aes(x = HoursStudying, y = HoursSleep)) + geom_point() + geom_smooth(method = "lm")
+
+ggplot(surveyResults, aes(x = HoursStudying, y = HoursSleep)) +
+  geom_point(color = "blue", size = 2, alpha = 0.6) +  # Customize point color, size, and transparency
+  geom_smooth(method = "lm", color = "red", se = TRUE, linetype = "dashed") +  # Customize regression line
+  labs(
+    title = "Relationship between Hours Studying and Hours Sleeping",  # Add a title
+    x = "Hours Studying",  # Label the x-axis
+    y = "Hours Sleeping"  # Label the y-axis
+  ) +
+  theme_minimal() +  # Use a minimal theme for a clean look
+  theme(
+    plot.title = element_text(size = 14, face = "bold", hjust = 0.5),  # Customize title appearance
+    axis.title = element_text(size = 12),  # Customize axis titles appearance
+    axis.text = element_text(size = 10)  # Customize axis text appearance
+  )
+```
+
+
+Hours spent studying correlation to hours of sleep,
+This data  has a weak correlation with correlation coefficient of -0.2775 (4 d.p.), this means that the regression line is not accurate for many students at the university of sydney. The negative coefficient implies that the more hours a student spends studying the less sleep they get. 
+
+HoursSleep, HoursStudy, residual plot,
+
+```{r}
+fit = lm(HoursStudying~ HoursSleep, data = surveyResults)
+ggplot(fit, aes(x = .fitted, y = .resid)) +
+  geom_point() +
+  geom_hline(yintercept = 0)
+
+
+# Fit a linear regression model
+fit <- lm(HoursStudying ~ HoursSleep, data = surveyResults)
+
+# Create the plot
+ggplot(fit, aes(x = .fitted, y = .resid)) +
+  geom_point(color = "blue", size = 2, alpha = 0.6) +  # Customize point color, size, and transparency
+  geom_hline(yintercept = 0, color = "red", linetype = "dashed", size = 1) +  # Customize horizontal line
+  labs(
+    title = "Residuals vs Fitted Values",  # Add a title
+    x = "Fitted Values",  # Label the x-axis
+    y = "Residuals"  # Label the y-axis
+  ) +
+  theme_minimal() +  # Use a minimal theme for a clean look
+  theme(
+    plot.title = element_text(size = 14, face = "bold", hjust = 0.5),  # Customize title appearance
+    axis.title = element_text(size = 12),  # Customize axis titles appearance
+    axis.text = element_text(size = 10)  # Customize axis text appearance
+  ) 
+```
+
+The residual plot of the graph shows a random and pretty even spread of points around the line. Displaying that the linear model is appropriate for this model. 
+
+Conclusion,
+No accurate correlation can be made between university activities and healthy activities due to the small correlation coefficient for the correlated data. The negative correlation between hours of sleep and hours of studying implies that people who study more get less sleep. The data does match a linear model as the residual plot points appear randomly around the line. 
+
+
+## Articles
+Example: Studies exploring the relationship between risk-taking behaviour and weekly income did not correspond with data collected; with Gajewski’s study (2021) observing a 12.7% increase in gambling-specific risk-taking, upon a 1% increase in weekly income, and Bosh-Domenech’s study (2005) finding that risk attraction, given small risk, is more common among wealthy individuals.
+
+2: https://www.ijiet.org/vol12/1696-IJIET-4643.pdf
+1: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8910686/
+
+Article 1 : Yu-Hsiu Chu and Yao-Chuen Li’s study (2022)  explored that online lectures and learning did not have any significant increase in psychological distress during the transition from in person learning to a hybrid or fully online learning climate. 
+
+Article 2: Another study by Chee Leong Lim (2022), which offered insights into how modifying the way online content is delivered can instead have a more positive effect on students.
+
+
+## References
+
+
+## Acknowledgements
+- 29/02/2024 4pm-5pm (Zoom) 
+- 07/03/2024 3pm-4pm (Zoom) 
+- 16/04/2024 (Class)
+
+- Karthik – Data plotting, Google form, Articles section
+- Paras – Data cleaning, Assumptions and Data cleaning section
+- Caleb – Data analysis, Organising
+- Leon – Presentation
+- Josh – Presentation, Executive summary section, Contact creator
+- Ella – Team leader, Organising, Data Plotting, Data Analysis
+
+
+
+
+
+

@@ -7,6 +7,7 @@ output: html_document
 
 ```{r warning = F, message = F}
 library(tidyverse)
+
 ```
 
 ```{r}
@@ -32,7 +33,7 @@ ggplot(surveyResults, aes(x=LearningPreference)) + geom_bar()
 ### Lectures behind (Quantitative, Discrete) - Histogram
 ```{r}
 
-ggplot(surveyResults, aes(x=LecturesBehind)) + geom_histogram()
+ggplot(surveyResults, aes(x=LecturesBehind)) + geom_bar()
 
 ```
 ### Play speed of lectures?  (Quantative, Discrete) - Histogram
@@ -46,6 +47,11 @@ ggplot(surveyResults, aes(x=LectureSpeed))  + geom_bar()
 ### Time before the due date do you submit assignments? ( Qualitative -Nominal) - Bar plot
 ```{r}
 ggplot(surveyResults, aes(x=AssignmentSubmission))  + geom_bar()
+
+total_above_1 <-nrow(surveyResults %>% filter(LectureSpeed>1.0))
+total <- nrow(surveyResults)
+percentage = total_above_1/total *100
+print(percentage)
 
 ```
 
@@ -77,6 +83,14 @@ ggplot(data = surveyResults, aes(x = LecturesBehind, y = LearningPreference)) +
     labs(title = "Box Plot of Lectures Behind by Learning Preference",
          x = "Lectures Behind",
          y = "Learning Preference")
+
+ggplot(data = surveyResults, aes(x = LectureSpeed, y = LecturesBehind, )) +
+    geom_boxplot() +
+    theme_minimal() +
+    labs(title = "Box Plot of Lectures Behind by Learning Preference",
+         x = "Lectures Speed",
+         y = "Lectures Behind")
+
 
 
 ```
