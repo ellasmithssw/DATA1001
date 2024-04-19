@@ -129,7 +129,7 @@ ggplot(data = surveyResults, aes(x = LearningPreference, y = LecturesBehind, fil
   scale_fill_brewer(palette = "Set3") 
 
 ```
-Most students prefer watching online lectures at 1x speed, but 65% use faster speeds, gaining a time advantage. This could suggest that without online options, 65% of students might fall behind further.
+Most students prefer watching online lectures at 1x speed, but more than 65% use faster speeds, gaining a time advantage. This could suggest that without online options, 65% of students might fall behind further.
 
 ```{r}
 total_above_1 <-nrow(surveyResults %>% filter(LectureSpeed>1.0))
