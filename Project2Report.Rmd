@@ -62,7 +62,7 @@ We added another column with the using excel and editing the csv file directly. 
 ## Research Theme
 Due to the COVID-19 pandemic, many institutions shifted teaching and work to online formats. Our research aims to assess the impact of online versus in-person learning on students' work-life balance and academic performance.
 
-2.2 Research Question 1
+### 2.2 Research Question 1
 How well do people stay on top of work when at home or in person?
 
 A weak positive correlation between online learning and keeping up with university work was found. Online learning, especially the option to adjust playback speed, may help students keep up by saving time. However, our data suggests a hybrid approach (45% of students) is most optimal, combining the benefits of in-person focus and online flexibility.
@@ -145,20 +145,20 @@ ggplot(surveyResults, aes(x = as.numeric(LectureSpeed))) +
 ```
 
 
-## Research Question 2
+### Research Question 2
 Does the introduction of online learning lead to a bettwer worklife balance?
 
 There is no strong correlation between university activities and healthy life habits. Correlation coefficients between -0.27 and 0.23 indicate very weak trends.
 ```{r}
-ggplot(surveyResults, aes(x = HoursStudying, y = HoursSleep)) + geom_point() + geom_smooth(method = "lm")
+
 
 ggplot(surveyResults, aes(x = HoursStudying, y = HoursSleep)) +
   geom_point(color = "blue", size = 2, alpha = 0.6) + 
   geom_smooth(method = "lm", color = "red", se = TRUE, linetype = "dashed") + 
   labs(
     title = "Relationship between Hours Studying and Hours Sleeping", 
-    x = "Hours Studying", 
-    y = "Hours Sleeping" 
+    x = "Hours Studying Daily", 
+    y = "Hours Sleeping Daily" 
   ) +
   theme_minimal() + 
   theme(
