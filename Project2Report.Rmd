@@ -146,7 +146,7 @@ ggplot(surveyResults, aes(x = as.numeric(LectureSpeed))) +
 
 
 ### Research Question 2
-Does the introduction of online learning lead to a bettwer worklife balance?
+Does the introduction of online learning lead to a bettwer work life balance?
 
 There is no strong correlation between university activities and healthy life habits. Correlation coefficients between -0.27 and 0.23 indicate very weak trends.
 ```{r}
@@ -200,7 +200,6 @@ No strong correlation exists between university activities and healthy habits du
 
 
 ## Articles
-Example: Studies exploring the relationship between risk-taking behaviour and weekly income did not correspond with data collected; with Gajewski’s study (2021) observing a 12.7% increase in gambling-specific risk-taking, upon a 1% increase in weekly income, and Bosh-Domenech’s study (2005) finding that risk attraction, given small risk, is more common among wealthy individuals.
 
 2: https://www.ijiet.org/vol12/1696-IJIET-4643.pdf
 1: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8910686/
