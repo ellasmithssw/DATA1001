@@ -18,10 +18,10 @@ output:
 ---
 
 <br>
-```{r warning=F, message=F}
+
+```r
 library(tidyverse)
 surveyResults_1 = read.csv("~/Documents/GitHub/DATA1001/DATA1001 Project responses with time - Sheet1 copy.csv")
-
 ```
 
 ## Executive Summary
@@ -41,10 +41,25 @@ There were, in total, 68 entries. There were 10 questions in our survey however 
 
 
 
-```{r}
 
+```r
 str(surveyResults_1)
+```
 
+```
+## 'data.frame':	68 obs. of  12 variables:
+##  $ Timestamp           : chr  "3/25/2024 12:45:26" "3/25/2024 13:16:58" "3/25/2024 13:21:38" "3/25/2024 14:23:29" ...
+##  $ LearningPreference  : chr  "At home" "Hybrid" "Hybrid" "Hybrid" ...
+##  $ CurrentLearningType : chr  "In person" "Hybrid" "Hybrid" "In person" ...
+##  $ AssignmentSubmission: int  0 1 1 0 3 2 1 0 1 0 ...
+##  $ LecturesBehind      : int  2 0 1 3 0 0 4 3 2 4 ...
+##  $ LectureSpeed        : num  1 1.25 2 1.5 1 1.25 1 1.5 1.5 1.5 ...
+##  $ WakeUp              : chr  "5:00:00 am" "7:00:00 am" "5:00:00 am" "7:15:00 am" ...
+##  $ Bedtime             : chr  "10:00:00 pm" "10:00:00 pm" "11:00:00 pm" "11:00:00 pm" ...
+##  $ HoursStudying       : num  1 3 8 4 4 6 20 3 2 3 ...
+##  $ Extracurriculars    : num  0 1 3 0 0 1 1 2 0 3 ...
+##  $ MealsDaily          : chr  "2" "5" "4" "4" ...
+##  $ HoursSleep          : num  7 9 6 8.25 9 8 8 8 7.5 9 ...
 ```
 
 
@@ -65,12 +80,11 @@ Unrealistic responses include, someone who studied for 233333333333 hours daily 
 These were removed using :
 
 
-```{r}
 
+```r
 rows_to_remove <- c(7,24,33)
 
 surveyResults <- surveyResults_1[-rows_to_remove, ]
-
 ```
 
 
@@ -88,9 +102,8 @@ How well do people stay on top of work when at home or in person?
 A weak positive correlation between online learning and keeping up with university work was found. Online learning, especially the option to adjust playback speed, may help students keep up by saving time. However, our data suggests a hybrid approach (45% of students) is most optimal, combining the benefits of in-person focus and online flexibility.
 
 
-```{r}
 
-
+```r
 ggplot(surveyResults, aes(x = LearningPreference)) +
   geom_bar(fill = "steelblue", alpha = 0.7) +
   labs(
@@ -107,11 +120,12 @@ ggplot(surveyResults, aes(x = LearningPreference)) +
   )
 ```
 
+<img src="Project2Report_files/figure-html/unnamed-chunk-4-1.png" width="672" />
+
 In hybrid learning, 75% of students fall behind by fewer than 4 lectures. In contrast, 50% of in-person students fall behind by 4-10 lectures. This suggests hybrid learning can help reduce the number of lectures missed. The range of lectures missed is the smallest in online learning, indicating consistent results. In both hybrid and in-person learning, students are typically less than 2 lectures behind, though hybrid students show better performance overall.
 
-```{r}
 
-
+```r
 ggplot(data = surveyResults, aes(x = LearningPreference, y = LecturesBehind, fill = LearningPreference)) +
   geom_boxplot(alpha = 0.7) + 
   theme_minimal() + 
@@ -127,20 +141,27 @@ ggplot(data = surveyResults, aes(x = LearningPreference, y = LecturesBehind, fil
     legend.position = "top" 
   ) +
   scale_fill_brewer(palette = "Set3") 
-
 ```
+
+<img src="Project2Report_files/figure-html/unnamed-chunk-5-1.png" width="672" />
 Most students prefer watching online lectures at 1x speed, but 65% use faster speeds, gaining a time advantage. This could suggest that without online options, 65% of students might fall behind further.
 
-```{r}
+
+```r
 total_above_1 <-nrow(surveyResults %>% filter(LectureSpeed>1.0))
 total <- nrow(surveyResults)
 percentage = total_above_1/total *100
 print(percentage)
 ```
+
+```
+## [1] 69.23077
+```
 of watch at a speed faster than 1x. This indicates that without the option to watch online 65% of students would lack that time advantage which is very important at univeristy and could suggest they would fall more lectures behind.
 
 
-```{r}
+
+```r
 ggplot(surveyResults, aes(x = as.numeric(LectureSpeed))) +
   geom_bar(fill = "steelblue", alpha = 0.7) +  
   labs(
@@ -161,17 +182,17 @@ ggplot(surveyResults, aes(x = as.numeric(LectureSpeed))) +
       by = 0.25
     )
   )
-
 ```
+
+<img src="Project2Report_files/figure-html/unnamed-chunk-7-1.png" width="672" />
 
 
 ### Research Question 2
 Does the introduction of online learning lead to a bettwer work life balance?
 
 There is no strong correlation between university activities and healthy life habits. Correlation coefficients between -0.27 and 0.23 indicate very weak trends.
-```{r}
 
-
+```r
 ggplot(surveyResults, aes(x = HoursStudying, y = HoursSleep)) +
   geom_point(color = "blue", size = 2, alpha = 0.6) + 
   geom_smooth(method = "lm", color = "red", se = TRUE, linetype = "dashed") + 
@@ -188,12 +209,28 @@ ggplot(surveyResults, aes(x = HoursStudying, y = HoursSleep)) +
   )
 ```
 
+```
+## `geom_smooth()` using formula = 'y ~ x'
+```
+
+```
+## Warning: Removed 1 row containing non-finite outside the scale range
+## (`stat_smooth()`).
+```
+
+```
+## Warning: Removed 1 row containing missing values or values outside the scale range
+## (`geom_point()`).
+```
+
+<img src="Project2Report_files/figure-html/unnamed-chunk-8-1.png" width="672" />
+
 
 HoursSleep and HoursStudy show a weak negative correlation (-0.2775) between studying and sleep. This implies that more study time leads to less sleep for students at the University of Sydney.
 
 
-```{r}
 
+```r
 fit <- lm(HoursStudying ~ HoursSleep, data = surveyResults)
 
 
@@ -212,6 +249,16 @@ ggplot(fit, aes(x = .fitted, y = .resid)) +
     axis.text = element_text(size = 10) 
   ) 
 ```
+
+```
+## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+## ℹ Please use `linewidth` instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.
+```
+
+<img src="Project2Report_files/figure-html/unnamed-chunk-9-1.png" width="672" />
 
 The residual plot of HoursSleep versus HoursStudy shows a random spread of points, suggesting a linear model is appropriate for this data.
 
